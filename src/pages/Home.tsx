@@ -11,21 +11,30 @@ const Home = () => {
   const featuredCars: CarProps[] = [
     {
       id: 1,
-      name: 'Aurora Starlight Elite',
-      price: 250000,
-      image: 'public/lovable-uploads/99623fe4-df94-4978-bdaf-6bc5a017f03a.png'
+      name: 'Ferrari 458 Italia',
+      price: 290000,
+      image: '/lovable-uploads/b4afe246-06ec-4079-899a-8f1bb9de1782.png',
+      year: 2023,
+      transmission: 'Automatic',
+      fuelType: 'Petrol'
     },
     {
       id: 2,
-      name: 'Thunderstorm Turbo Pro',
-      price: 390000,
-      image: 'public/lovable-uploads/3cb58310-527f-4687-99dc-db5575fcacc1.png'
+      name: 'Mercedes-Benz G63 AMG',
+      price: 178000,
+      image: '/lovable-uploads/3ac20a51-a62e-4a41-a8f8-51f86f6cdb62.png',
+      year: 2023,
+      transmission: 'Automatic',
+      fuelType: 'Petrol'
     },
     {
       id: 3,
-      name: 'Phoenix Firestorm GT',
-      price: 200000,
-      image: 'public/lovable-uploads/6134438d-11c9-4cab-bff9-9304a71d1521.png'
+      name: 'Range Rover Sport HSE',
+      price: 86000,
+      image: '/lovable-uploads/666372ae-6e35-483a-a1e0-5aab2a93a8ff.png',
+      year: 2023,
+      transmission: 'Automatic',
+      fuelType: 'Hybrid'
     }
   ];
 
@@ -34,7 +43,7 @@ const Home = () => {
       <Hero
         title="Experience Automotive Excellence"
         subtitle="Discover our curated collection of premium luxury vehicles"
-        image="public/lovable-uploads/99623fe4-df94-4978-bdaf-6bc5a017f03a.png"
+        image="/lovable-uploads/b4afe246-06ec-4079-899a-8f1bb9de1782.png"
       >
         <div className="flex flex-wrap gap-4">
           <Link to="/cars" className="btn-primary">
@@ -54,8 +63,16 @@ const Home = () => {
           />
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredCars.map(car => (
-              <CarCard key={car.id} {...car} />
+            {featuredCars.map((car, index) => (
+              <motion.div
+                key={car.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+              >
+                <CarCard {...car} />
+              </motion.div>
             ))}
           </div>
 
@@ -176,9 +193,12 @@ const Home = () => {
               className="md:w-2/5"
             >
               <img 
-                src="public/lovable-uploads/6134438d-11c9-4cab-bff9-9304a71d1521.png" 
-                alt="Luxury Car" 
+                src="/lovable-uploads/a53c2020-2a7f-4e34-a7f4-607ec040b859.png" 
+                alt="Mercedes-Benz G-Class" 
                 className="rounded-lg shadow-2xl" 
+                loading="lazy"
+                width="600"
+                height="400"
               />
             </motion.div>
           </div>
