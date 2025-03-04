@@ -36,14 +36,20 @@ const CarCard = ({ id, name, price, image, brand, year, mileage, transmission, f
       <Link to={`/cars/${id}`} className="block h-full">
         <div className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 h-full flex flex-col">
           <div className="relative overflow-hidden h-56">
-            {/* Optimized image loading */}
+            {/* Image optimization: using loading priority, proper sizing, and modern formats */}
             <img 
               src={image} 
               alt={name} 
-              loading="lazy"
+              loading="eager" // Change to eager for faster loading of visible images
+              fetchpriority="high" // Hint to browser this is high priority
               width="400"
               height="300"
               className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
+              decoding="async" // Use async decoding to avoid blocking rendering
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder.svg'; // Fallback image
+              }}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             
