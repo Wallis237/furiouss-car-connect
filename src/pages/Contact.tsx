@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
@@ -96,13 +95,12 @@ const Contact = () => {
           to_email: 'tarshiwilliams476@gmail.com,marcelenyong0@gmail.com', // Target emails
         };
         
-        // Send the email using EmailJS
-        // You need to replace these IDs with your actual EmailJS service, template, and user IDs
+        // Send the email using EmailJS with the correct EmailJS credentials
         const response = await emailjs.send(
-          'service_id', // Replace with your EmailJS service ID
-          'template_id', // Replace with your EmailJS template ID
+          'service_j5e4hns', // Your EmailJS service ID
+          'template_f77b7gr', // Your EmailJS template ID
           templateParams,
-          'user_id' // Replace with your EmailJS user ID
+          'mSVgJSBtxTJvYM9l1' // Your EmailJS public key
         );
         
         console.log('Email sent successfully:', response);
