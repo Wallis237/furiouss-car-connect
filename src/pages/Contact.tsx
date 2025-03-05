@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
@@ -5,6 +6,7 @@ import SectionTitle from '../components/SectionTitle';
 import { motion } from 'framer-motion';
 import { Phone, Mail, MapPin, Check } from 'lucide-react';
 import { useToast } from '../hooks/use-toast';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -85,19 +87,25 @@ const Contact = () => {
       setIsSubmitting(true);
       
       try {
-        // Email sending simulation - In a real app, you would connect this to a backend service
-        const emailData = {
-          to: ['tarshiwilliams476@gmail.com', 'marcelenyong0@gmail.com'],
-          subject: `Contact Form: ${formData.name}`,
-          message: `
-Name: ${formData.name}
-Email: ${formData.email}
-Phone: ${formData.phone || 'Not provided'}
-Message: ${formData.message}
-          `
+        // Prepare the template parameters for EmailJS
+        const templateParams = {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone || 'Not provided',
+          message: formData.message,
+          to_email: 'tarshiwilliams476@gmail.com,marcelenyong0@gmail.com', // Target emails
         };
         
-        console.log('Email would be sent with data:', emailData);
+        // Send the email using EmailJS
+        // You need to replace these IDs with your actual EmailJS service, template, and user IDs
+        const response = await emailjs.send(
+          'service_id', // Replace with your EmailJS service ID
+          'template_id', // Replace with your EmailJS template ID
+          templateParams,
+          'user_id' // Replace with your EmailJS user ID
+        );
+        
+        console.log('Email sent successfully:', response);
         
         // Show success message
         toast({

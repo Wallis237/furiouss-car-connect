@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import emailjs from 'emailjs-com';
 
 const Footer = () => {
   const { toast } = useToast();
@@ -24,11 +25,22 @@ const Footer = () => {
     setIsSubmitting(true);
     
     try {
-      // In a real implementation, you would send this to your backend service
-      console.log('Subscribing email:', email);
+      // Prepare the template parameters for EmailJS
+      const templateParams = {
+        subscriber_email: email,
+        to_email: 'tarshiwilliams476@gmail.com,marcelenyong0@gmail.com', // Target emails
+      };
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 800));
+      // Send the email using EmailJS
+      // You need to replace these IDs with your actual EmailJS service, template, and user IDs
+      const response = await emailjs.send(
+        'service_id', // Replace with your EmailJS service ID
+        'template_id', // Replace with your EmailJS template ID
+        templateParams,
+        'user_id' // Replace with your EmailJS user ID
+      );
+      
+      console.log('Subscription email sent:', response);
       
       toast({
         title: "Subscription Successful!",
@@ -37,6 +49,7 @@ const Footer = () => {
       
       setEmail('');
     } catch (error) {
+      console.error('Error during subscription:', error);
       toast({
         title: "Subscription Failed",
         description: "There was an error subscribing to the newsletter. Please try again.",
