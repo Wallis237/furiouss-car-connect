@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
@@ -18,6 +17,7 @@ const Contact = () => {
   });
   
   const [errors, setErrors] = useState<{[key: string]: string}>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -78,28 +78,53 @@ const Contact = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     if (validate()) {
-      // Form is valid, proceed with submission
-      console.log('Form submitted:', formData);
+      setIsSubmitting(true);
       
-      // Show success message
-      toast({
-        title: "Message Sent",
-        description: "We've received your message and will get back to you soon.",
-        duration: 5000,
-      });
-      
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        message: '',
-        agreement: false
-      });
+      try {
+        // Email sending simulation - In a real app, you would connect this to a backend service
+        const emailData = {
+          to: ['tarshiwilliams476@gmail.com', 'marcelenyong0@gmail.com'],
+          subject: `Contact Form: ${formData.name}`,
+          message: `
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone || 'Not provided'}
+Message: ${formData.message}
+          `
+        };
+        
+        console.log('Email would be sent with data:', emailData);
+        
+        // Show success message
+        toast({
+          title: "Message Sent",
+          description: "We've received your message and will get back to you soon.",
+          duration: 5000,
+        });
+        
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          message: '',
+          agreement: false
+        });
+      } catch (error) {
+        console.error('Error sending message:', error);
+        toast({
+          title: "Error",
+          description: "There was a problem sending your message. Please try again.",
+          variant: "destructive",
+          duration: 5000,
+        });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -162,8 +187,8 @@ const Contact = () => {
                 <MapPin className="h-8 w-8 text-furious-red" />
               </div>
               <h3 className="text-xl font-semibold mb-4">Address</h3>
-              <p className="text-gray-600">West Palm Beach,</p>
-              <p className="text-gray-600">4669 Travis Street</p>
+              <p className="text-gray-600">Bonaberi,</p>
+              <p className="text-gray-600">Douala, Cameroon</p>
             </motion.div>
           </div>
 
@@ -215,7 +240,7 @@ const Contact = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-furious-red focus:border-transparent transition-all"
-                  placeholder="+1 (123) 456-7890"
+                  placeholder="+237 6XX XXX XXX"
                 />
               </div>
 
@@ -255,10 +280,23 @@ const Contact = () => {
               <div>
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="btn-primary w-full sm:w-auto flex items-center justify-center"
                 >
-                  <span>Send Message</span>
-                  <Check className="ml-2 h-4 w-4" />
+                  {isSubmitting ? (
+                    <>
+                      <span>Sending...</span>
+                      <svg className="animate-spin ml-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    </>
+                  ) : (
+                    <>
+                      <span>Send Message</span>
+                      <Check className="ml-2 h-4 w-4" />
+                    </>
+                  )}
                 </button>
               </div>
             </motion.form>
@@ -275,7 +313,7 @@ const Contact = () => {
 
           <div className="mt-8 rounded-lg overflow-hidden h-[400px]">
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14104.539893908996!2d-80.07231037907249!3d26.706539290624254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88d8d7e151cf5df5%3A0x1cbd9f4a5908eca5!2sWest%20Palm%20Beach%2C%20FL!5e0!3m2!1sen!2sus!4v1664312034279!5m2!1sen!2sus" 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15918.599146386448!2d9.668461767846676!3d4.076468443518731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1061126d4daa83fd%3A0x381b3a760de9a00!2sBonaberi%2C%20Douala%2C%20Cameroon!5e0!3m2!1sen!2sus!4v1697512345678!5m2!1sen!2sus" 
               width="100%" 
               height="100%" 
               style={{ border: 0 }} 

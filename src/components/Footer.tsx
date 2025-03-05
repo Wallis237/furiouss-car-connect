@@ -1,8 +1,52 @@
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Instagram, Linkedin, ChevronRight } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Footer = () => {
+  const { toast } = useToast();
+  const [email, setEmail] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !email.includes('@')) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      // In a real implementation, you would send this to your backend service
+      console.log('Subscribing email:', email);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
+      toast({
+        title: "Subscription Successful!",
+        description: "Thank you for subscribing to our newsletter",
+      });
+      
+      setEmail('');
+    } catch (error) {
+      toast({
+        title: "Subscription Failed",
+        description: "There was an error subscribing to the newsletter. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <footer className="bg-furious-black text-white pt-16 pb-8">
       <div className="container-custom">
@@ -80,7 +124,7 @@ const Footer = () => {
               </li>
               <li className="flex items-start">
                 <span className="font-medium text-white w-20">Address:</span>
-                <span>West Palm Beach, 4669 Travis Street</span>
+                <span>Bonaberi, Douala, Cameroon</span>
               </li>
             </ul>
           </div>
@@ -88,14 +132,31 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-6">Newsletter</h4>
             <p className="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates and offers.</p>
-            <form className="flex flex-col space-y-3">
+            <form className="flex flex-col space-y-3" onSubmit={handleSubscribe}>
               <input 
                 type="email" 
                 placeholder="Your Email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="bg-furious-darkgray text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-furious-red transition-all"
+                required
               />
-              <button type="submit" className="btn-primary">
-                Subscribe
+              <button 
+                type="submit" 
+                className="btn-primary flex justify-center items-center"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  <>
+                    <span>Subscribing...</span>
+                    <svg className="animate-spin ml-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                  </>
+                ) : (
+                  "Subscribe"
+                )}
               </button>
             </form>
           </div>
