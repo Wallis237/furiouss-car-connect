@@ -100,7 +100,7 @@ const extendedCarsData: CarProps[] = [
   {
     id: 9,
     name: 'Land Rover Discovery Sport',
-    price: Il52000,
+    price: 52000,
     image: '/lovable-uploads/928c6b5f-2732-4611-ad01-79eff090f92b.png',
     brand: 'Land Rover',
     year: 2022,
