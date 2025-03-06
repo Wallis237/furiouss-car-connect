@@ -9,6 +9,7 @@ import Cars from "./pages/Cars";
 import CarDetails from "./pages/CarDetails";
 import About from "./pages/About";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/cars/:id" element={<CarDetails />} />
             <Route path="/about" element={<About />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

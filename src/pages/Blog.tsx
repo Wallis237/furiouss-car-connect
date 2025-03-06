@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-interface BlogPost {
+export interface BlogPost {
   id: number;
   title: string;
   excerpt: string;
@@ -16,7 +17,7 @@ interface BlogPost {
   readTime?: string;
 }
 
-const blogPosts: BlogPost[] = [
+export const blogPosts: BlogPost[] = [
   {
     id: 1,
     title: "Mercedes G-Class: The Ultimate Luxury SUV for 2024",
@@ -133,8 +134,10 @@ const Blog = () => {
                   </div>
                   <h3 className="text-xl font-bold mb-3 line-clamp-2 hover:text-furious-red transition-colors">{post.title}</h3>
                   <p className="text-gray-600 mb-6 flex-grow line-clamp-3">{post.excerpt}</p>
-                  <Button variant="link" className="p-0 justify-start text-furious-red hover:text-furious-red/80 group">
-                    Read More <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  <Button variant="link" className="p-0 justify-start text-furious-red hover:text-furious-red/80 group" asChild>
+                    <Link to={`/blog/${post.id}`}>
+                      Read More <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

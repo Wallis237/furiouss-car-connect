@@ -19,8 +19,9 @@ const About = () => {
       <Hero
         title="About Us"
         subtitle="Learn more about Furious and our commitment to automotive excellence"
-        image="public/lovable-uploads/3cb58310-527f-4687-99dc-db5575fcacc1.png"
-        height="h-[50vh]"
+        image="/lovable-uploads/6134438d-11c9-4cab-bff9-9304a71d1521.png"
+        height="h-[70vh]"
+        overlay={true}
       />
 
       <section className="py-20">
@@ -34,7 +35,7 @@ const About = () => {
               className="lg:w-1/2"
             >
               <img 
-                src="public/lovable-uploads/99623fe4-df94-4978-bdaf-6bc5a017f03a.png" 
+                src="/lovable-uploads/99623fe4-df94-4978-bdaf-6bc5a017f03a.png" 
                 alt="About Furious" 
                 className="rounded-lg shadow-lg" 
               />
