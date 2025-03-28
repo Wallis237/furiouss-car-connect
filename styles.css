@@ -1,3 +1,4 @@
+
 /* Base Styles */
 :root {
   --furious-red: #e53e3e;
@@ -115,20 +116,13 @@ ul {
   padding: 1rem 0;
 }
 
-.logo {
-  display: flex;
-  align-items: center;
+.logo h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
-.logo-image {
-  height: 50px;
-  width: auto;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-.logo-image:hover {
-  transform: scale(1.05);
+.logo span {
+  color: var(--furious-red);
 }
 
 .main-nav ul {
@@ -541,24 +535,6 @@ ul {
   box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.25);
 }
 
-/* Map Container */
-.map-container {
-  margin-top: 3rem;
-}
-
-.map-container h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-
-.map {
-  height: 400px;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
 /* Footer */
 .footer {
   background-color: #1a202c;
@@ -770,10 +746,6 @@ ul {
     flex-direction: column;
     gap: 2rem;
   }
-  
-  .logo-image {
-    height: 40px;
-  }
 }
 
 @media (max-width: 576px) {
@@ -784,9 +756,5 @@ ul {
   .car-grid,
   .blog-grid {
     grid-template-columns: 1fr;
-  }
-  
-  .map {
-    height: 300px;
   }
 }
