@@ -1,14 +1,24 @@
-# Render Deployment Configuration
-
-# Specify service settings
 services:
   - type: web
-    env: node
-    plan: starter
+    name: your-project-api
+    runtime: node
     region: oregon
+    plan: free
+    rootDir: server  # if your Node.js code is in /server folder
     buildCommand: npm install
-    startCommand: npm start
-    autoDeploy: true
+    startCommand: node server.js  # or npm start
     envVars:
-      NODE_ENV: production
-      OTHER_ENV_VAR: value
+      - key: NODE_ENV
+        value: production
+
+  - type: web
+    name: your-project-client
+    runtime: static
+    region: oregon
+    plan: free
+    rootDir: client  # if your React code is in /client folder
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./build  # or ./dist depending on your build output
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://your-project-api.onrender.com
