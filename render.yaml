@@ -1,0 +1,14 @@
+# Render Deployment Configuration
+
+# Specify service settings
+services:
+  - service: web
+    env: node
+    plan: starter
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      NODE_ENV: production
+      OTHER_ENV_VAR: value
