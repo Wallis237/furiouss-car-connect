@@ -2,7 +2,7 @@
 
 # Specify service settings
 services:
-  - service: web
+  - type: web
     env: node
     plan: starter
     region: oregon
